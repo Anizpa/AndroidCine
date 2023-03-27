@@ -1,15 +1,16 @@
 package com.example.cine.entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PeliculasRespuesta {
-    private ArrayList<Peliculas> peliculasList;
+    private List<Peliculas> peliculasList;
 
-    public ArrayList<Peliculas> getPeliculasList(){
+    public List<Peliculas> getPeliculasList(){
         return peliculasList;
     }
 
-    public void setPeliculasList(ArrayList<Peliculas> peliculasList) {
+    public void setPeliculasList(List<Peliculas> peliculasList) {
         this.peliculasList = peliculasList;
     }
 }
