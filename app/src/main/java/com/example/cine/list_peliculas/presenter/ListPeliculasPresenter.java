@@ -1,5 +1,6 @@
 package com.example.cine.list_peliculas.presenter;
 
+import com.example.cine.entities.ListPeliculasRequest;
 import com.example.cine.entities.Peliculas;
 import com.example.cine.list_peliculas.ListPeliculasContract;
 import com.example.cine.list_peliculas.model.ListPeliculasModel;
@@ -18,8 +19,8 @@ public class ListPeliculasPresenter implements ListPeliculasContract.Presenter {
     }
 
     @Override
-    public void listPeliculas(Peliculas peliculas) {
-        listPeliculasModel.listPeliculasWS(peliculas, new ListPeliculasContract.Model.OnLstPeliculasListener() {
+    public void listPeliculas(ListPeliculasRequest request) {
+        listPeliculasModel.listPeliculasWS(request, new ListPeliculasContract.Model.OnLstPeliculasListener() {
             @Override
             public void onSuccess(List<Peliculas> listPeliculas) {
                 if(listPeliculas != null && listPeliculas.size() > 0){

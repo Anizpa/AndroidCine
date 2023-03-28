@@ -1,5 +1,6 @@
 package com.example.cine.list_peliculas;
 
+import com.example.cine.entities.ListPeliculasRequest;
 import com.example.cine.entities.Peliculas;
 
 import java.util.List;
@@ -19,12 +20,12 @@ public interface ListPeliculasContract {
             void onFailure(String err);
         }
 
-        void listPeliculasWS(Peliculas peliculas,
-                           OnLstPeliculasListener onLstPeliculasListener);
+        void listPeliculasWS(ListPeliculasRequest request,
+                             OnLstPeliculasListener onLstPeliculasListener);
     }
 
     public interface Presenter {
         //Caso de uso
-        void listPeliculas(Peliculas peliculas);
+        void listPeliculas(ListPeliculasRequest request);
     }
 }

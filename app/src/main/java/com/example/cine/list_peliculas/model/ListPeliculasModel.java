@@ -1,6 +1,7 @@
 package com.example.cine.list_peliculas.model;
 
 
+import com.example.cine.entities.ListPeliculasRequest;
 import com.example.cine.entities.Peliculas;
 import com.example.cine.entities.PeliculasRespuesta;
 import com.example.cine.list_peliculas.ListPeliculasContract;
@@ -18,16 +19,21 @@ import retrofit2.Response;
 public class ListPeliculasModel implements ListPeliculasContract.Model  {
 
     private Gson gson = new Gson();
+    private ListPeliculasRequest listPeliculasRequest;
 
     @Override
-    public void listPeliculasWS(Peliculas peliculas, OnLstPeliculasListener onLstPeliculasListener) {
+    public void listPeliculasWS(ListPeliculasRequest request, OnLstPeliculasListener onLstPeliculasListener) {
+        listPeliculasRequest = request;
         getPeliculasService(onLstPeliculasListener);
     }
     private void getPeliculasService(final OnLstPeliculasListener onLstPeliculasListener){
         Api apiPeliculas = peliculasApi.getPeliculasApi().create(Api.class);
 
         Call<List<Peliculas>> peliculasRespuestaCall = apiPeliculas
-                .getPeliculasList(null, null, null, 0,100,0, null);
+                .getPeliculasList(listPeliculasRequest.getTitulo(), listPeliculasRequest.getCategoria(),
+                        listPeliculasRequest.getEdadRecomendada(), listPeliculasRequest.getValoracion(),
+                        listPeliculasRequest.getLimite(),listPeliculasRequest.getId(),
+                        listPeliculasRequest.getImagen() );
         peliculasRespuestaCall.enqueue(new Callback<List<Peliculas>>() {
             @Override
             public void onResponse(Call<List<Peliculas>> call,

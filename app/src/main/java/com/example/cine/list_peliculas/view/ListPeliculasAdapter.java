@@ -17,15 +17,19 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListPeliculasAdapter extends RecyclerView.Adapter<ListPeliculasAdapter.ViewHolder> {
 
     private List<Peliculas> peliculas;
+    private List<Peliculas> busqueda;
     private Context context;
 
     public ListPeliculasAdapter(Context context) {
         this.context = context;
         peliculas = new ArrayList<>();
+        busqueda = new ArrayList<>();
+        busqueda.addAll(peliculas);
     }
 
     @NonNull
@@ -35,6 +39,25 @@ public class ListPeliculasAdapter extends RecyclerView.Adapter<ListPeliculasAdap
                 .inflate(R.layout.item_pelicula, parent, false);
 
         return new ViewHolder(view);
+    }
+
+    public void filtrado(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            peliculas.clear();
+            peliculas.addAll(busqueda);
+           /* for (int i = 0; i < busqueda.size(); i++) {
+                peliculas.add(busqueda.get(i));
+            }*/
+
+        } else {
+            List<Peliculas> coleccion = peliculas.stream().filter(i -> i.getTitulo().toLowerCase()
+                    .contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            this.busqueda.addAll(peliculas);
+            peliculas.clear();
+            peliculas.addAll(coleccion);
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -54,12 +77,13 @@ public class ListPeliculasAdapter extends RecyclerView.Adapter<ListPeliculasAdap
         return peliculas.size();
     }
 
-    public void addPeliculas(List<Peliculas> listPeliculas){
+    public void addPeliculas(List<Peliculas> listPeliculas) {
+        peliculas.clear();
         peliculas.addAll(listPeliculas);
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView foto;
         private TextView nombre;
         private TextView categoria;

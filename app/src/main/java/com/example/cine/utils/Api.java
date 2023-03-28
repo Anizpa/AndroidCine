@@ -16,8 +16,8 @@ public interface Api {
     Call<List<Peliculas>> getPeliculasList(
             @Query("titulo") String titulo,
             @Query("categoria") String categoria,
-            @Query("edadRecomendada") String edadRecomendada,
-            @Query("valoracion") int valoracion,
+            @Query("edadRecomendada") int edadRecomendada,
+            @Query("valoracion") double valoracion,
             @Query("limite") int limite,
             @Query("id") int id,
             @Query("imagen") String imagen
